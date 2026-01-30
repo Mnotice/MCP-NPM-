@@ -62,6 +62,18 @@ To use this server with Claude Desktop, you need to add it to your `claude_deskt
 
 3.  Restart Claude Desktop.
 
+### Example Interactions
+
+Once the server is connected, you can interact with it in Claude using natural language prompts. Claude will automatically select the appropriate tool.
+
+**Try asking:**
+
+*   **For Forecasts:** "What is the weather forecast for coordinates 40.7128, -74.0060?"
+*   **For Alerts:** "Check for any weather alerts in CA."
+*   **For Country Overview:** "Give me a travel overview for Indonesia."
+*   **For Historical Data:** "Get historical weather for latitude 40.7, longitude -74.0 from 2023-01-01 to 2023-01-05."
+
+
 ### Adding New Skills
 
 To add new functionality (tools) to your MCP server:
@@ -87,6 +99,31 @@ To add new functionality (tools) to your MCP server:
 
 3.  Rebuild the project: `npm run build`.
 4.  Restart your MCP client (e.g., Claude Desktop) to see the new tool.
+
+### Connecting to External APIs
+
+If your skill needs to fetch data from an external API:
+
+1.  **Use `fetch`**: Node.js 18+ has built-in `fetch` support.
+2.  **API Keys**: Store sensitive keys in environment variables or configuration files (add to `.gitignore`).
+3.  **Example**:
+
+    ```typescript
+    const API_KEY = process.env.MY_API_KEY;
+
+    server.tool(
+      'get-custom-data',
+      'Fetches data from an external API',
+      { id: z.string() },
+      async ({ id }) => {
+        const response = await fetch(`https://api.example.com/data/${id}?key=${API_KEY}`);
+        const data = await response.json();
+        return {
+          content: [{ type: 'text', text: JSON.stringify(data) }],
+        };
+      }
+    );
+    ```
 
 ## License
 

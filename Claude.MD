@@ -20,7 +20,12 @@ When asked to add a new tool:
 1.  Read `src/index.ts` to see existing tool definitions.
 2.  Use `server.tool()` to define the new tool using Zod schemas for input.
 3.  Ensure you handle errors gracefully.
-4.  Always run `npm run build` after modifying the source code.
+4.  If the tool requires an external API:
+    - Use `fetch` for HTTP requests.
+    - Check for API keys in `process.env` if needed.
+    - Handle network errors (try/catch).
+    - Return a clear error message in the content if the request fails.
+5.  Always run `npm run build` after modifying the source code.
 
 ## Debugging
 
