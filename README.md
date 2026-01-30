@@ -1,103 +1,88 @@
-# Weather MCP Server
+# MCP Server Template
 
-This project is a foundational template for developing a Model Context Protocol (MCP) server designed to integrate with Claude Desktop. It enables the creation of custom prompts and search functions, using Claude as an interface for executing custom functionalities.
+A production-ready template for building Model Context Protocol (MCP) servers. This project is configured to work seamlessly with Claude Desktop and other MCP clients.
 
 ## Features
-- **Weather Alerts**: Retrieve active weather alerts for a specified state.
-- **Weather Forecast**: Get detailed weather forecasts for a specific location based on latitude and longitude.
 
-## Technologies Used
-- **Node.js**: Server runtime.
-- **TypeScript**: Type-safe development.
-- **Model Context Protocol SDK**: For MCP server implementation.
-- **Zod**: Schema validation.
+- **TypeScript Support**: Fully typed environment for building robust tools.
+- **Auto-Build**: Configured for easy compilation.
+- **Extensible**: Simple pattern for adding new tools and capabilities.
 
 ## Setup Instructions
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/username/repository.git
-   ```
-2. Navigate to the root project directory:
-   ```bash
-   cd "c:\Users\Gaming PC-01\Desktop\MCPNODE\weather"
-   ```
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
-4. Build the project:
-   ```bash
-   npm run build
-   ```
-5. Start the MCP server:
-   ```bash
-   node .\build\index.js
-   ```
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+
+### Installation
+
+1.  Clone the repository:
+    ```bash
+    git clone <repository-url>
+    cd <project-directory>
+    ```
+
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+
+3.  Build the project:
+    ```bash
+    npm run build
+    ```
 
 ## Usage
-- **Claude Desktop Integration**: Configure Claude Desktop to use this MCP server by specifying the server command and arguments in the `claude_desktop_config.json` file. Add Path ./build/index.js
-- **Custom Prompts**: Extend the server's tools to create custom prompts and search functionalities.
 
-## Example Configuration
-```json
-{
-    "mcpServers": {
-        "weather": {
-            "command": "node",
-            "args": [
-            "C:/Path/To/Your/Project/build/index.js"
-            ]
+### Local Usage with Claude Desktop
+
+To use this server with Claude Desktop, you need to add it to your `claude_desktop_config.json`.
+
+1.  Locate your `claude_desktop_config.json`:
+    - **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+    - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+
+2.  Add the server configuration. A helpful template is provided in [`claude_desktop_config.json`](./claude_desktop_config.json) in this repository.
+
+    ```json
+    {
+      "mcpServers": {
+        "my-server": {
+          "command": "node",
+          "args": ["/ABSOLUTE/PATH/TO/PROJECT/build/index.js"]
         }
+      }
     }
-}
-```
+    ```
+    *Note: Make sure to replace `/ABSOLUTE/PATH/TO/PROJECT/` with the actual full path to this directory.*
 
-## Adding Tools to the MCP Server
+3.  Restart Claude Desktop.
 
-To extend the functionality of the MCP server, you can add custom tools. Follow these steps:
+### Adding New Skills
 
-1. **Define the Tool**:
-   - Use the `server.tool` method to define a new tool.
-   - Provide a unique name, description, input schema, and implementation logic.
+To add new functionality (tools) to your MCP server:
 
-   Example:
-   ```javascript
-   server.tool("tool-name", "Description of the tool", {
-       inputParam: z.string().describe("Description of the input parameter")
-   }, async ({ inputParam }) => {
-       // Tool logic here
-       return {
-           content: [
-               {
-                   type: "text",
-                   text: `Processed input: ${inputParam}`,
-               },
-           ],
-       };
-   });
-   ```
+1.  Open `src/index.ts` (or the relevant file where you define tools).
+2.  Use the `server.tool` method to register a new tool.
 
-2. **Register the Tool**:
-   - Add the tool definition to the `index.ts` file or any other relevant file where the server is initialized.
-
-3. **Rebuild the Project**:
-   - After adding the tool, rebuild the project to compile the changes:
-     ```bash
-     npm run build
-     ```
-
-4. **Test the Tool**:
-   - Start the server and test the tool using an MCP client or the MCP Inspector.
-
-   Example Test Command:
-   ```bash
-   node .\build\index.js
-   ```
-
-By following these steps, you can easily extend the MCP server with custom tools tailored to your needs.
+    ```typescript
+    server.tool(
+      "new-tool-name",
+      "Description of what the tool does",
+      {
+        paramName: z.string().describe("Description of the parameter")
+      },
+      async ({ paramName }) => {
+        // Your logic here
+        return {
+          content: [{ type: "text", text: `Result: ${paramName}` }]
+        };
+      }
+    );
+    ```
+3.  Rebuild the project: `npm run build`.
+4.  Restart your MCP client (e.g., Claude Desktop) to see the new tool.
 
 ## License
-This project is licensed under the MIT License. See the LICENSE file for details.
 
-## Contributing
-Feel free to submit issues or pull requests to improve this template and add new features.
+MIT

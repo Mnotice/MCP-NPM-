@@ -15,12 +15,12 @@
     "weather": "./build/index.js"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.12.1",
-    "zod": "^3.25.48"
+    "@modelcontextprotocol/sdk": "latest",
+    "zod": "latest"
   },
   "devDependencies": {
-    "@types/node": "^22.15.29",
-    "typescript": "^5.8.3"
+    "@types/node": "latest",
+    "typescript": "latest"
   },
   "files": [
     "build"
