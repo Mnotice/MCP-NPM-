@@ -1,6 +1,6 @@
 {
-    "transport": "sse",
-    "port": 3000,
-    "endpoint": "/sse",
-    "messageEndpoint": "/message"
+  "transport": "sse",
+  "port": 3000,
+  "endpoint": "/sse",
+  "messageEndpoint": "/message"
 }

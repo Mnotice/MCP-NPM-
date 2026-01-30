@@ -1,10 +1,8 @@
 {
-    "mcpServers": {
-        "weather": {
-            "command": "node",
-            "args": [
-                "C:/PATH/TO/YOUR/PROJECT/build/index.js"
-            ]
-        }
+  "mcpServers": {
+    "weather": {
+      "command": "node",
+      "args": ["C:/PATH/TO/YOUR/PROJECT/build/index.js"]
     }
+  }
 }

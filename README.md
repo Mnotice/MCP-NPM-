@@ -11,18 +11,21 @@ A production-ready template for building Model Context Protocol (MCP) servers. T
 ## Setup Instructions
 
 ### Prerequisites
+
 - Node.js (v18 or higher)
 - npm or yarn
 
 ### Installation
 
 1.  Clone the repository:
+
     ```bash
     git clone <repository-url>
     cd <project-directory>
     ```
 
 2.  Install dependencies:
+
     ```bash
     npm install
     ```
@@ -54,7 +57,8 @@ To use this server with Claude Desktop, you need to add it to your `claude_deskt
       }
     }
     ```
-    *Note: Make sure to replace `/ABSOLUTE/PATH/TO/PROJECT/` with the actual full path to this directory.*
+
+    _Note: Make sure to replace `/ABSOLUTE/PATH/TO/PROJECT/` with the actual full path to this directory._
 
 3.  Restart Claude Desktop.
 
@@ -67,19 +71,20 @@ To add new functionality (tools) to your MCP server:
 
     ```typescript
     server.tool(
-      "new-tool-name",
-      "Description of what the tool does",
+      'new-tool-name',
+      'Description of what the tool does',
       {
-        paramName: z.string().describe("Description of the parameter")
+        paramName: z.string().describe('Description of the parameter'),
       },
       async ({ paramName }) => {
         // Your logic here
         return {
-          content: [{ type: "text", text: `Result: ${paramName}` }]
+          content: [{ type: 'text', text: `Result: ${paramName}` }],
         };
-      }
+      },
     );
     ```
+
 3.  Rebuild the project: `npm run build`.
 4.  Restart your MCP client (e.g., Claude Desktop) to see the new tool.
 

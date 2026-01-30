@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc && icacls build\\index.js /grant Everyone:F"
+    "test": "vitest run",
+    "build": "tsc && icacls build\\index.js /grant Everyone:F",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "keywords": [],
   "author": "",
@@ -19,8 +22,15 @@
     "zod": "latest"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.2",
     "@types/node": "latest",
-    "typescript": "latest"
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "prettier": "^3.8.1",
+    "typescript": "latest",
+    "typescript-eslint": "^8.54.0",
+    "vitest": "^4.0.18"
   },
   "files": [
     "build"
